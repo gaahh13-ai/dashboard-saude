@@ -8,33 +8,37 @@
 <style>
   :root{
     color-scheme: light;
-    --bg:#f4f7fa; --card:#ffffff; --card2:#eef2f7; --line:#e1e8f0;
-    --txt:#16222e; --muted:#607285; --accent:#0ea5e9; --accent2:#16a34a;
-    --warn:#d97706; --danger:#dc2626; --sleep:#8b5cf6;
+    --bg:#eaf6ef; --bg2:#f5fbf8; --card:#ffffff; --card2:#eef6f0; --line:#d8ebe0;
+    --txt:#173a30; --muted:#5c7d70; --accent:#0d9488; --accent2:#16a34a;
+    --warn:#ea8a0b; --danger:#e0574c; --sleep:#7c6cf0; --coral:#fb7185;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:24px}
+  body{margin:0;background:linear-gradient(180deg,#e6f5ec 0%,#f5fbf8 320px,#f5fbf8 100%);background-attachment:fixed;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:24px}
   .wrap{max-width:1120px;margin:0 auto}
-  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:6px}
-  h1{font-size:22px;margin:0;font-weight:700}
-  .sub{color:var(--muted);font-size:13px;margin-top:4px}
-  .goal-badge{background:linear-gradient(135deg,#0ea5e9,#16a34a);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px}
+  header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px;background:linear-gradient(120deg,#0d9488 0%,#16a34a 60%,#22c55e 100%);color:#fff;padding:22px 26px;border-radius:20px;box-shadow:0 10px 26px rgba(13,148,136,.22)}
+  h1{font-size:23px;margin:0;font-weight:800;color:#fff;letter-spacing:.2px}
+  .sub{color:rgba(255,255,255,.92);font-size:13px;margin-top:5px}
+  header .live-dot{background:#eafff4}
+  .goal-badge{background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 16px;border-radius:14px;font-weight:700;font-size:14px;backdrop-filter:blur(4px)}
   .grid{display:grid;gap:16px}
   .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:18px 0}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(16,34,46,.05)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 14px rgba(16,90,70,.06)}
+  .card h3{color:var(--accent)}
   .kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   .kpi .val{font-size:26px;font-weight:700;margin-top:6px}
   .kpi .delta{font-size:12px;margin-top:4px}
   .up{color:var(--accent2)} .good{color:var(--accent2)} .flat{color:var(--muted)}
-  .card h3{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--txt)}
-  .section-title{font-size:16px;font-weight:700;margin:26px 0 10px}
+  .card h3{margin:0 0 12px;font-size:14px;font-weight:700;color:var(--accent)}
+  .section-title{font-size:17px;font-weight:800;margin:28px 0 12px;color:var(--txt);display:flex;align-items:center;gap:8px}
+  .section-title::before{content:"";width:5px;height:18px;border-radius:3px;background:linear-gradient(180deg,var(--accent),var(--accent2))}
   .chart-box{position:relative;height:250px}
   .charts{grid-template-columns:repeat(2,1fr)}
   .sd-grid{display:grid;gap:16px;grid-template-columns:1.5fr 1fr}
   .two-eq{display:grid;gap:16px;grid-template-columns:1fr 1fr}
   @media(max-width:760px){.charts,.sd-grid,.two-eq{grid-template-columns:1fr}}
   .bar{height:12px;background:var(--card2);border-radius:8px;overflow:hidden}
-  .bar > i{display:block;height:100%;background:linear-gradient(90deg,#0ea5e9,#16a34a)}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,#0d9488,#22c55e)}
+  .report{border-left-color:var(--accent)!important}
   .legend-note{color:var(--muted);font-size:12px;margin-top:8px}
   .diet-grade{font-size:48px;font-weight:800;color:var(--accent2);line-height:1}
   .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:6px;animation:pulse 2s infinite}
@@ -132,6 +136,27 @@
         <b>Próxima avaliação/consulta:</b> 17/07 às 9h
       </div>
       <div class="legend-note">Dados atualizados manualmente.</div>
+    </div>
+  </div>
+
+  <!-- ===== COMENTÁRIOS (placeholder) ===== -->
+  <div class="section-title">💬 Comentários</div>
+  <div class="card" style="border:2px dashed var(--line);background:linear-gradient(180deg,#f2faf5,#ffffff)">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="font-size:15px;font-weight:700;color:var(--txt)">Espaço reservado para comentários e respostas</div>
+      <div class="muted" style="margin-top:6px;max-width:540px;margin-left:auto;margin-right:auto">Em breve você (e quem acessar) poderá deixar comentários e responder por aqui. Ainda não está funcional — vamos configurar o funcionamento depois.</div>
+    </div>
+    <div style="max-width:560px;margin:0 auto;opacity:.65;pointer-events:none">
+      <div style="background:var(--card2);border-radius:12px;padding:14px">
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <div style="flex:1;height:34px;background:#fff;border:1px solid var(--line);border-radius:8px"></div>
+        </div>
+        <div style="height:64px;background:#fff;border:1px solid var(--line);border-radius:8px"></div>
+        <div style="margin-top:10px;text-align:right"><span style="display:inline-block;background:var(--accent);color:#fff;padding:7px 18px;border-radius:9px;font-size:13px;font-weight:700">Comentar</span></div>
+      </div>
+      <div style="margin-top:12px;padding-left:6px">
+        <div class="report" style="background:#fff"><div class="when">🗓️ exemplo</div><div class="msg">Aqui aparecerão os comentários, com opção de responder. 💬</div></div>
+      </div>
     </div>
   </div>
 
