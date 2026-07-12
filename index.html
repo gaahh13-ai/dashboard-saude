@@ -10,41 +10,40 @@
     color-scheme: light;
     --bg:#f4f7fa; --card:#ffffff; --card2:#eef2f7; --line:#e1e8f0;
     --txt:#16222e; --muted:#607285; --accent:#0ea5e9; --accent2:#16a34a;
-    --warn:#d97706; --danger:#dc2626;
+    --warn:#d97706; --danger:#dc2626; --sleep:#8b5cf6;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:24px}
-  .wrap{max-width:1080px;margin:0 auto}
+  .wrap{max-width:1120px;margin:0 auto}
   header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:6px}
   h1{font-size:22px;margin:0;font-weight:700}
   .sub{color:var(--muted);font-size:13px;margin-top:4px}
   .goal-badge{background:linear-gradient(135deg,#0ea5e9,#16a34a);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px}
   .grid{display:grid;gap:16px}
-  .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:20px 0}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:18px 0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(16,34,46,.05)}
   .kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   .kpi .val{font-size:26px;font-weight:700;margin-top:6px}
   .kpi .delta{font-size:12px;margin-top:4px}
   .up{color:var(--accent2)} .good{color:var(--accent2)} .flat{color:var(--muted)}
-  .charts{grid-template-columns:repeat(2,1fr)}
-  @media(max-width:720px){.charts{grid-template-columns:1fr}}
-  .sd-grid{display:grid;gap:16px;grid-template-columns:1.5fr 1fr}
-  @media(max-width:720px){.sd-grid{grid-template-columns:1fr}}
-  .bignum{font-size:42px;font-weight:800;line-height:1}
-  .diet-grade{font-size:48px;font-weight:800;color:var(--accent2);line-height:1}
   .card h3{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--txt)}
-  .section-title{font-size:16px;font-weight:700;margin:26px 0 6px}
-  .chart-box{position:relative;height:240px}
+  .section-title{font-size:16px;font-weight:700;margin:26px 0 10px}
+  .chart-box{position:relative;height:250px}
+  .charts{grid-template-columns:repeat(2,1fr)}
+  .sd-grid{display:grid;gap:16px;grid-template-columns:1.5fr 1fr}
+  .two-eq{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.charts,.sd-grid,.two-eq{grid-template-columns:1fr}}
   .bar{height:12px;background:var(--card2);border-radius:8px;overflow:hidden}
   .bar > i{display:block;height:100%;background:linear-gradient(90deg,#0ea5e9,#16a34a)}
   .legend-note{color:var(--muted);font-size:12px;margin-top:8px}
+  .diet-grade{font-size:48px;font-weight:800;color:var(--accent2);line-height:1}
   .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#16a34a;margin-right:6px;animation:pulse 2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
   .report{border-left:3px solid var(--accent);background:var(--card2);border-radius:8px;padding:10px 12px;margin-bottom:10px}
   .report .when{font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
   .report .msg{font-size:14px;white-space:pre-wrap;line-height:1.4}
   .muted{color:var(--muted);font-size:13px}
-  .foot{color:var(--muted);font-size:12px;margin-top:18px;text-align:center}
+  .foot{color:var(--muted);font-size:12px;margin-top:22px;text-align:center}
   .spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;display:inline-block;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
   @keyframes spin{to{transform:rotate(360deg)}}
   button.reload{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;color:var(--txt)}
@@ -61,63 +60,64 @@
     <div class="goal-badge">🎯 Meta: 11% de gordura · teto 70 kg</div>
   </header>
 
-  <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
-    <span><span class="live-dot"></span>Reports recentes (ao vivo)</span>
-    <button class="reload" onclick="loadReports()">↻ Recarregar</button>
-  </div>
-  <div class="card">
-    <div id="liveStatus" class="muted"><span class="spinner"></span>Lendo seus reports da planilha…</div>
-    <div id="reports"></div>
-  </div>
-
-  <div class="section-title">🧑‍🏫 Feedback do coach — semana 06–12/07</div>
-  <div class="card" style="border-left:4px solid var(--accent2)">
-    <div class="msg" style="font-size:14px;line-height:1.55">
-      <b>1 treino confirmado</b> na semana até agora: qui 09/07 — musculação de peito, sem cardio, dieta correta o dia todo.
-      (O relato de segunda foi desfeito via <b>/apagar</b>, então não conta.)
-      Se o joelho permitir, distribua <b>mais dias de força</b> e comece a reintroduzir <b>cardio leve (bike)</b> no pós-treino, rumo à meta de 11%. Dieta correta é ótimo sinal — reporte os outros dias pra fechar o quadro.
-    </div>
-    <div class="legend-note">Atualizado em 10/07/2026 pela rotina (com desfazer + deduplicação de conteúdo). Este texto é gerado pela rotina de processamento; para refrescar, rode a rotina e me peça para republicar.</div>
-  </div>
-
-  <div class="section-title">😴 Sono &amp; 🍽️ Dieta</div>
-  <div class="sd-grid">
-    <div>
-      <div class="card"><h3>Qualidade do sono (últimos 60 dias)</h3><div class="chart-box"><canvas id="sleep"></canvas></div></div>
-      <div class="card" style="margin-top:16px;text-align:center">
-        <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Média de qualidade — últimos 60 dias</div>
-        <div class="bignum" style="color:#8b5cf6;margin-top:8px"><span id="sleepAvg">74</span>%</div>
-      </div>
-    </div>
-    <div class="card" style="border-left:4px solid var(--accent2)">
-      <h3>🍽️ Dieta</h3>
-      <div style="text-align:center;margin:6px 0 14px">
-        <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Nota de adesão</div>
-        <div class="diet-grade" style="margin-top:6px">8,0<span style="font-size:20px;color:var(--muted);font-weight:600">/10</span></div>
-      </div>
-      <div style="font-size:13px;line-height:1.55">
-        <b style="color:var(--accent2)">✅ Pontos positivos:</b> segue o plano da nutri (Pietra) com consistência; relatou "alimentação correta o dia inteiro"; boa base de proteína (~1,9 g/kg) e rotina de 5 refeições.<br><br>
-        <b style="color:var(--warn)">⚠️ A melhorar:</b> excessos de fim de semana (álcool) derrubam o saldo da semana; gordura da dieta um pouco baixa (~13% das calorias); reporte mais dias de alimentação pra nota ficar mais precisa.
-      </div>
-      <div class="legend-note">Nota e comentário gerados por IA a partir dos seus reports de alimentação. Atualizado em 12/07/2026 (refresca quando a rotina roda e eu republico).</div>
-    </div>
-  </div>
-
-  <div class="section-title">Composição corporal (avaliações)</div>
-  <div class="grid kpis" style="margin-top:6px">
+  <!-- ===== FAIXA DE DESTAQUES ===== -->
+  <div class="grid kpis">
     <div class="card kpi"><div class="label">Peso atual</div><div class="val">69,0 kg</div><div class="delta up">+2,0 kg desde 2024</div></div>
-    <div class="card kpi"><div class="label">% Gordura</div><div class="val">12,67%</div><div class="delta good">−2,48 pp ↓</div></div>
+    <div class="card kpi"><div class="label">% Gordura</div><div class="val">12,67%</div><div class="delta good">−2,48 pp ↓ (meta 11%)</div></div>
     <div class="card kpi"><div class="label">Massa magra</div><div class="val">60,26 kg</div><div class="delta up">+3,41 kg 💪</div></div>
-    <div class="card kpi"><div class="label">Massa gorda</div><div class="val">8,74 kg</div><div class="delta good">−1,41 kg ↓</div></div>
+    <div class="card kpi" style="border-top:3px solid var(--sleep)"><div class="label">Sono (60d)</div><div class="val" style="color:var(--sleep)"><span id="sleepAvg">87</span>%</div><div class="delta flat">média · só noites &gt;5h</div></div>
+    <div class="card kpi" style="border-top:3px solid var(--accent2)"><div class="label">Dieta</div><div class="val" style="color:var(--accent2)">8,0<span style="font-size:16px;color:var(--muted)">/10</span></div><div class="delta flat">adesão (IA)</div></div>
     <div class="card kpi"><div class="label">Falta p/ meta</div><div class="val">~1,1 kg</div><div class="delta flat">de gordura</div></div>
   </div>
 
-  <div class="card" style="margin-bottom:16px">
+  <div class="card" style="margin-bottom:8px">
     <h3>Progresso rumo a 11% de gordura</h3>
     <div class="bar"><i id="goalbar" style="width:0%"></i></div>
     <div class="legend-note">Partida 15,15% (set/24) → atual <b>12,67%</b> → meta <b>11,0%</b>. Progresso: <b id="goalpct">0%</b>.</div>
   </div>
 
+  <!-- ===== SONO & DIETA ===== -->
+  <div class="section-title">😴 Sono &amp; 🍽️ Dieta</div>
+  <div class="sd-grid">
+    <div class="card"><h3>Qualidade do sono — últimos 60 dias (só noites &gt;5h)</h3><div class="chart-box"><canvas id="sleep"></canvas></div></div>
+    <div class="card" style="border-left:4px solid var(--accent2)">
+      <h3>🍽️ Dieta — nota &amp; comentário</h3>
+      <div style="text-align:center;margin:6px 0 14px">
+        <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Nota de adesão</div>
+        <div class="diet-grade" style="margin-top:6px">8,0<span style="font-size:20px;color:var(--muted);font-weight:600">/10</span></div>
+      </div>
+      <div style="font-size:13px;line-height:1.55">
+        <b style="color:var(--accent2)">✅ Positivos:</b> segue o plano da nutri (Pietra) com consistência; relatou "alimentação correta o dia inteiro"; boa base de proteína (~1,9 g/kg) e rotina de 5 refeições.<br><br>
+        <b style="color:var(--warn)">⚠️ A melhorar:</b> excessos de fim de semana (álcool) derrubam o saldo; gordura da dieta um pouco baixa (~13% das calorias); reporte mais dias pra nota ficar mais precisa.
+      </div>
+      <div class="legend-note">Nota e comentário gerados por IA a partir dos seus reports de alimentação. Atualizado em 12/07/2026.</div>
+    </div>
+  </div>
+
+  <!-- ===== ACOMPANHAMENTO AO VIVO ===== -->
+  <div class="section-title" style="display:flex;justify-content:space-between;align-items:center">
+    <span><span class="live-dot"></span>Acompanhamento ao vivo</span>
+    <button class="reload" onclick="loadReports()">↻ Recarregar</button>
+  </div>
+  <div class="two-eq">
+    <div class="card">
+      <h3>Reports recentes (Telegram)</h3>
+      <div id="liveStatus" class="muted"><span class="spinner"></span>Lendo seus reports da planilha…</div>
+      <div id="reports"></div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent2)">
+      <h3>🧑‍🏫 Feedback do coach — semana 06–12/07</h3>
+      <div class="msg" style="font-size:14px;line-height:1.55">
+        <b>1 treino confirmado</b> na semana até agora: qui 09/07 — musculação de peito, sem cardio, dieta correta o dia todo.
+        (O relato de segunda foi desfeito via <b>/apagar</b>, então não conta.)
+        Se o joelho permitir, distribua <b>mais dias de força</b> e reintroduza <b>cardio leve (bike)</b> no pós-treino, rumo à meta de 11%.
+      </div>
+      <div class="legend-note">Gerado pela rotina (com desfazer + deduplicação). Atualizado em 10/07/2026; refresca quando a rotina roda e eu republico.</div>
+    </div>
+  </div>
+
+  <!-- ===== EVOLUÇÃO ===== -->
+  <div class="section-title">📈 Evolução — composição corporal</div>
   <div class="grid charts">
     <div class="card"><h3>% de Gordura ao longo do tempo</h3><div class="chart-box"><canvas id="bf"></canvas></div></div>
     <div class="card"><h3>Massa magra × Massa gorda (kg)</h3><div class="chart-box"><canvas id="mass"></canvas></div></div>
@@ -133,29 +133,27 @@
     </div>
   </div>
 
-  <div class="foot">Hospedado no GitHub Pages · lê a planilha "Reports Telegram - Gabriel" a cada carregamento. Comando <b>/apagar</b> no Telegram remove o último report.</div>
+  <div class="foot">Dashboard no GitHub Pages · reports do Telegram lidos ao vivo · sono e dieta atualizados sob demanda. Comando <b>/apagar</b> no Telegram remove o último report.</div>
 </div>
 
 <script>
-// ====== CONFIG ======
-// URL de leitura da planilha (endpoint gviz CSV). Requer a planilha compartilhada como "qualquer pessoa com o link: leitor".
 const SHEET_ID = "1lA30Ptc0nbAuCB_L6fgi7FsrVs6PmlR3_NLeMBDR6n4";
 const SHEET_TAB = "Untitled";
 const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
 
-// ====== Charts (avaliações) ======
-const dates = ["13/09/24","10/06/25","10/04/26"];
 const cGrid="#e1e8f0", cMuted="#607285";
 Chart.defaults.color=cMuted; Chart.defaults.font.family="-apple-system,Segoe UI,Roboto,sans-serif";
 const baseOpts=(y)=>({responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12}}},scales:{x:{grid:{color:cGrid}},y:{grid:{color:cGrid},title:{display:!!y,text:y,color:cMuted}}}});
+const dates = ["13/09/24","10/06/25","10/04/26"];
 new Chart(bf,{type:"line",data:{labels:dates,datasets:[{label:"% Gordura",data:[15.15,13.84,12.67],borderColor:"#0ea5e9",backgroundColor:"rgba(14,165,233,.12)",tension:.3,fill:true,pointRadius:5},{label:"Meta 11%",data:[11,11,11],borderColor:"#16a34a",borderDash:[6,6],pointRadius:0}]},options:baseOpts("%")});
 new Chart(mass,{type:"bar",data:{labels:dates,datasets:[{label:"Massa magra",data:[56.85,58.85,60.26],backgroundColor:"#0ea5e9"},{label:"Massa gorda",data:[10.15,9.45,8.74],backgroundColor:"#f59e0b"}]},options:baseOpts("kg")});
 new Chart(weight,{type:"line",data:{labels:dates,datasets:[{label:"Peso",data:[67,68.3,69],borderColor:"#334155",backgroundColor:"rgba(51,65,85,.08)",tension:.3,fill:true,pointRadius:5},{label:"Teto 70 kg",data:[70,70,70],borderColor:"#dc2626",borderDash:[6,6],pointRadius:0}]},options:baseOpts("kg")});
 new Chart(folds,{type:"line",data:{labels:dates,datasets:[{label:"Soma 7 dobras",data:[101,91,83],borderColor:"#16a34a",backgroundColor:"rgba(22,163,74,.12)",tension:.3,fill:true,pointRadius:5}]},options:baseOpts("mm")});
 new Chart(perim,{type:"line",data:{labels:dates,datasets:[{label:"Ombros",data:[110,112,114.5],borderColor:"#0ea5e9",tension:.3,pointRadius:4},{label:"Tórax",data:[96.5,94,98],borderColor:"#8b5cf6",tension:.3,pointRadius:4},{label:"Braço",data:[32.5,33.3,34.2],borderColor:"#16a34a",tension:.3,pointRadius:4},{label:"Cintura",data:[79.5,80,79],borderColor:"#f59e0b",tension:.3,pointRadius:4}]},options:baseOpts("cm")});
+(function(){const s=15.15,c=12.67,g=11.0;const p=Math.max(0,Math.min(100,((s-c)/(s-g))*100));document.getElementById("goalbar").style.width=p.toFixed(0)+"%";document.getElementById("goalpct").textContent=p.toFixed(0)+"%";})();
 
-// ===== Sono (últimos 60 dias, dados do Sleep Cycle) =====
-const sleepData = [["2026-05-14",74],["2026-05-15",88],["2026-05-16",94],["2026-05-17",86],["2026-05-18",88],["2026-05-19",25],["2026-05-19",80],["2026-05-20",93],["2026-05-21",80],["2026-05-22",79],["2026-05-23",85],["2026-05-24",17],["2026-05-24",98],["2026-05-25",83],["2026-05-26",17],["2026-05-26",41],["2026-05-27",85],["2026-05-28",5],["2026-05-28",6],["2026-05-28",11],["2026-05-28",61],["2026-05-29",54],["2026-05-30",94],["2026-05-31",88],["2026-06-01",88],["2026-06-02",100],["2026-06-03",100],["2026-06-04",44],["2026-06-05",95],["2026-06-06",73],["2026-06-07",85],["2026-06-08",84],["2026-06-09",92],["2026-06-10",13],["2026-06-10",87],["2026-06-11",5],["2026-06-11",90],["2026-06-12",83],["2026-06-13",84],["2026-06-14",92],["2026-06-15",100],["2026-06-16",53],["2026-06-17",88],["2026-06-18",94],["2026-06-19",8],["2026-06-19",100],["2026-06-20",63],["2026-06-21",19],["2026-06-21",81],["2026-06-22",100],["2026-06-23",97],["2026-06-24",99],["2026-06-25",84],["2026-06-26",83],["2026-06-27",88],["2026-06-28",84],["2026-06-29",86],["2026-06-30",86],["2026-07-01",82],["2026-07-02",86],["2026-07-03",98],["2026-07-04",100],["2026-07-05",84],["2026-07-06",92],["2026-07-07",85],["2026-07-08",83],["2026-07-09",93],["2026-07-10",79],["2026-07-11",99],["2026-07-12",69]];
+// ===== Sono (últimos 60 dias, só noites >5h de sono) =====
+const sleepData = [["2026-05-14",74],["2026-05-15",88],["2026-05-16",94],["2026-05-17",86],["2026-05-18",88],["2026-05-19",80],["2026-05-20",93],["2026-05-21",80],["2026-05-22",79],["2026-05-23",85],["2026-05-24",98],["2026-05-25",83],["2026-05-27",85],["2026-05-28",61],["2026-05-30",94],["2026-05-31",88],["2026-06-01",88],["2026-06-02",100],["2026-06-03",100],["2026-06-05",95],["2026-06-06",73],["2026-06-07",85],["2026-06-08",84],["2026-06-09",92],["2026-06-10",87],["2026-06-11",90],["2026-06-12",83],["2026-06-13",84],["2026-06-14",92],["2026-06-15",100],["2026-06-16",53],["2026-06-17",88],["2026-06-18",94],["2026-06-19",100],["2026-06-20",63],["2026-06-21",81],["2026-06-22",100],["2026-06-23",97],["2026-06-24",99],["2026-06-25",84],["2026-06-26",83],["2026-06-27",88],["2026-06-28",84],["2026-06-29",86],["2026-06-30",86],["2026-07-01",82],["2026-07-02",86],["2026-07-03",98],["2026-07-04",100],["2026-07-05",84],["2026-07-06",92],["2026-07-07",85],["2026-07-08",83],["2026-07-09",93],["2026-07-10",79],["2026-07-11",99],["2026-07-12",69]];
 const sLabels = sleepData.map(x=>{const d=new Date(x[0]);return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0");});
 const sVals = sleepData.map(x=>x[1]);
 const sAvg = Math.round(sVals.reduce((a,b)=>a+b,0)/sVals.length);
@@ -164,73 +162,36 @@ new Chart(sleep,{type:"line",data:{labels:sLabels,datasets:[
   {label:"Qualidade (%)",data:sVals,borderColor:"#8b5cf6",backgroundColor:"rgba(139,92,246,.12)",tension:.3,fill:true,pointRadius:2},
   {label:"Média 60d ("+sAvg+"%)",data:sVals.map(()=>sAvg),borderColor:"#16a34a",borderDash:[6,6],pointRadius:0}
 ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12}}},scales:{x:{grid:{color:cGrid},ticks:{maxTicksLimit:10,autoSkip:true}},y:{grid:{color:cGrid},min:0,max:100,title:{display:true,text:"%",color:cMuted}}}}});
-(function(){const s=15.15,c=12.67,g=11.0;const p=Math.max(0,Math.min(100,((s-c)/(s-g))*100));document.getElementById("goalbar").style.width=p.toFixed(0)+"%";document.getElementById("goalpct").textContent=p.toFixed(0)+"%";})();
 
-// ====== CSV parsing ======
+// ===== Reports ao vivo (Google Sheet) =====
 function parseCSV(text){
   const rows=[]; let row=[], cur="", q=false;
   for(let i=0;i<text.length;i++){
     const ch=text[i];
-    if(q){
-      if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; }
-      else cur+=ch;
-    } else {
-      if(ch==='"') q=true;
-      else if(ch===','){ row.push(cur); cur=""; }
-      else if(ch==='\n'){ row.push(cur); rows.push(row); row=[]; cur=""; }
-      else if(ch==='\r'){ /* skip */ }
-      else cur+=ch;
-    }
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+    else { if(ch==='"') q=true; else if(ch===','){ row.push(cur); cur=""; } else if(ch==='\n'){ row.push(cur); rows.push(row); row=[]; cur=""; } else if(ch==='\r'){} else cur+=ch; }
   }
   if(cur.length||row.length){ row.push(cur); rows.push(row); }
   return rows;
 }
 const UNDO_CMDS = new Set(["/apagar","/desfazer","/undo","apagar","desfazer"]);
-function applyUndo(reports){
-  const stack=[];
-  for(const r of reports){
-    const key=String(r.mensagem).trim().toLowerCase();
-    if(UNDO_CMDS.has(key)) stack.pop();
-    else stack.push(r);
-  }
-  return stack;
-}
-function fmtDate(iso){
-  const d=new Date(iso);
-  if(isNaN(d)) return iso||"";
-  const dd=String(d.getDate()).padStart(2,"0"),mm=String(d.getMonth()+1).padStart(2,"0");
-  const hh=String(d.getHours()).padStart(2,"0"),mi=String(d.getMinutes()).padStart(2,"0");
-  return `${dd}/${mm}/${d.getFullYear()} ${hh}:${mi}`;
-}
+function applyUndo(reports){ const st=[]; for(const r of reports){ const k=String(r.mensagem).trim().toLowerCase(); if(UNDO_CMDS.has(k)) st.pop(); else st.push(r); } return st; }
+function fmtDate(iso){ const d=new Date(iso); if(isNaN(d)) return iso||""; const dd=String(d.getDate()).padStart(2,"0"),mm=String(d.getMonth()+1).padStart(2,"0"),hh=String(d.getHours()).padStart(2,"0"),mi=String(d.getMinutes()).padStart(2,"0"); return `${dd}/${mm}/${d.getFullYear()} ${hh}:${mi}`; }
 function esc(s){return String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));}
-
 async function loadReports(){
-  const statusEl=document.getElementById("liveStatus");
-  const listEl=document.getElementById("reports");
-  statusEl.innerHTML='<span class="spinner"></span>Lendo seus reports da planilha…';
-  listEl.innerHTML="";
+  const statusEl=document.getElementById("liveStatus"); const listEl=document.getElementById("reports");
+  statusEl.innerHTML='<span class="spinner"></span>Lendo seus reports…'; listEl.innerHTML="";
   try{
-    const res=await fetch(CSV_URL,{cache:"no-store"});
-    if(!res.ok) throw new Error("HTTP "+res.status);
-    const text=await res.text();
-    const rows=parseCSV(text).filter(r=>r.length && r.some(c=>c.trim()!==""));
+    const res=await fetch(CSV_URL,{cache:"no-store"}); if(!res.ok) throw new Error("HTTP "+res.status);
+    const rows=parseCSV(await res.text()).filter(r=>r.length && r.some(c=>c.trim()!==""));
     let hi=rows.findIndex(c=>c.map(x=>x.toLowerCase().trim()).includes("mensagem"));
     const body=hi>=0?rows.slice(hi+1):rows;
-    let reports=body.map(c=>({data:(c[0]||"").trim(),mensagem:(c[1]||"").trim(),processado:(c[2]||"").trim()}))
-                    .filter(r=>r.mensagem && r.mensagem.toLowerCase()!=="/start");
-    reports=applyUndo(reports);
-    reports.reverse();
-    if(!reports.length){
-      statusEl.innerHTML="Nenhum report ainda. Mande uma mensagem no bot do Telegram que ela aparece aqui. <span class='muted'>(/apagar remove o último.)</span>";
-      return;
-    }
+    let reports=body.map(c=>({data:(c[0]||"").trim(),mensagem:(c[1]||"").trim(),processado:(c[2]||"").trim()})).filter(r=>r.mensagem && r.mensagem.toLowerCase()!=="/start");
+    reports=applyUndo(reports); reports.reverse();
+    if(!reports.length){ statusEl.innerHTML="Nenhum report ainda. Mande uma mensagem no bot do Telegram. <span class='muted'>(/apagar remove o último.)</span>"; return; }
     statusEl.innerHTML=`<b>${reports.length}</b> report(s) — mais recente no topo. <span class="muted">/apagar remove o último.</span>`;
-    listEl.innerHTML=reports.slice(0,20).map(r=>
-      `<div class="report"><div class="when">🗓️ ${esc(fmtDate(r.data))}</div><div class="msg">${esc(r.mensagem)}</div></div>`
-    ).join("");
-  }catch(e){
-    statusEl.innerHTML="Não consegui ler a planilha. Confirme que ela está compartilhada como <b>'qualquer pessoa com o link: leitor'</b>. ("+esc(e.message||e)+")";
-  }
+    listEl.innerHTML=reports.slice(0,20).map(r=>`<div class="report"><div class="when">🗓️ ${esc(fmtDate(r.data))}</div><div class="msg">${esc(r.mensagem)}</div></div>`).join("");
+  }catch(e){ statusEl.innerHTML="Não consegui ler a planilha. Confirme o compartilhamento 'qualquer pessoa com o link: leitor'. ("+esc(e.message||e)+")"; }
 }
 loadReports();
 </script>
