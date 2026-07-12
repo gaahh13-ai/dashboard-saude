@@ -80,6 +80,24 @@
     <div class="legend-note">Partida 15,15% (set/24) → atual <b>12,67%</b> → meta <b>11,0%</b>. Progresso: <b id="goalpct">0%</b>.</div>
   </div>
 
+  <!-- ===== PERFORMANCE DE TREINO ===== -->
+  <div class="section-title">🏋️ Performance de treino — realizado × meta (mês)</div>
+  <div class="card">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+      <div>
+        <div style="font-size:34px;font-weight:800;color:var(--txt)"><span id="trReal">8</span> <span style="font-size:18px;color:var(--muted);font-weight:600">/ <span id="trMeta">23</span> treinos</span></div>
+        <div class="muted" id="trSub" style="margin-top:2px">Meta 5×/semana · dias úteis do mês</div>
+      </div>
+      <div id="trStatus" style="padding:8px 18px;border-radius:999px;font-weight:800;font-size:14px">—</div>
+    </div>
+    <div style="position:relative;margin-top:22px">
+      <div class="bar" style="height:16px"><i id="trFill" style="width:0%"></i></div>
+      <div id="trMarker" style="position:absolute;top:-3px;height:22px;width:2px;background:#334155;left:0%;border-radius:2px"></div>
+      <div id="trMarkerLbl" style="position:absolute;top:-20px;transform:translateX(-50%);font-size:10px;font-weight:700;color:#334155;left:0%">esperado hoje</div>
+    </div>
+    <div class="legend-note" id="trNote"></div>
+  </div>
+
   <!-- ===== SONO & DIETA ===== -->
   <div class="section-title">😴 Sono &amp; 🍽️ Dieta</div>
   <div class="sd-grid">
@@ -178,6 +196,29 @@ new Chart(weight,{type:"line",data:{labels:dates,datasets:[{label:"Peso",data:[6
 new Chart(folds,{type:"line",data:{labels:dates,datasets:[{label:"Soma 7 dobras",data:[101,91,83],borderColor:"#16a34a",backgroundColor:"rgba(22,163,74,.12)",tension:.3,fill:true,pointRadius:5}]},options:baseOpts("mm")});
 new Chart(perim,{type:"line",data:{labels:dates,datasets:[{label:"Ombros",data:[110,112,114.5],borderColor:"#0ea5e9",tension:.3,pointRadius:4},{label:"Tórax",data:[96.5,94,98],borderColor:"#8b5cf6",tension:.3,pointRadius:4},{label:"Braço",data:[32.5,33.3,34.2],borderColor:"#16a34a",tension:.3,pointRadius:4},{label:"Cintura",data:[79.5,80,79],borderColor:"#f59e0b",tension:.3,pointRadius:4}]},options:baseOpts("cm")});
 (function(){const s=15.15,c=12.67,g=11.0;const p=Math.max(0,Math.min(100,((s-c)/(s-g))*100));document.getElementById("goalbar").style.width=p.toFixed(0)+"%";document.getElementById("goalpct").textContent=p.toFixed(0)+"%";})();
+
+// ===== Performance de treino (mês) =====
+// TREINOS REALIZADOS no mês corrente — atualizado pela rotina/republicação (ou futuramente pelo bot).
+const TREINO_REALIZADO = 8;
+(function(){
+  const meses=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  function bizInMonth(y,m){let c=0,d=new Date(y,m,1);while(d.getMonth()===m){const w=d.getDay();if(w>=1&&w<=5)c++;d.setDate(d.getDate()+1);}return c;}
+  function bizElapsed(y,m,day){let c=0;for(let i=1;i<=day;i++){const w=new Date(y,m,i).getDay();if(w>=1&&w<=5)c++;}return c;}
+  const now=new Date(), Y=now.getFullYear(), M=now.getMonth(), D=now.getDate();
+  const meta=bizInMonth(Y,M), esperado=bizElapsed(Y,M,D), real=TREINO_REALIZADO;
+  const desvio=Math.max(0, esperado-real); // quantos treinos atrás do esperado
+  let cor, bg, label;
+  if(desvio<=1){ cor="#16a34a"; bg="rgba(22,163,74,.15)"; label="✅ Em dia"; }
+  else if(desvio===2){ cor="#d97706"; bg="rgba(217,119,6,.15)"; label="⚠️ 2 dias atrás"; }
+  else { cor="#e0574c"; bg="rgba(224,87,76,.15)"; label="🔴 "+desvio+" dias atrás"; }
+  document.getElementById("trReal").textContent=real;
+  document.getElementById("trMeta").textContent=meta;
+  document.getElementById("trSub").textContent="Meta 5×/semana · "+meses[M]+"/"+String(Y).slice(2)+" · "+meta+" dias úteis";
+  const st=document.getElementById("trStatus"); st.textContent=label; st.style.color=cor; st.style.background=bg;
+  const fill=document.getElementById("trFill"); fill.style.width=Math.min(100,(real/meta)*100).toFixed(1)+"%"; fill.style.background=cor;
+  const mk=(esperado/meta)*100; document.getElementById("trMarker").style.left=mk+"%"; document.getElementById("trMarkerLbl").style.left=mk+"%";
+  document.getElementById("trNote").innerHTML="Realizado <b>"+real+"</b> · esperado até hoje <b>"+esperado+"</b> · meta do mês <b>"+meta+"</b>. A marca preta é onde você deveria estar hoje. 🟢 em dia · 🟡 2 dias atrás · 🔴 3+ dias atrás.";
+})();
 
 // ===== Sono (últimos 60 dias, só noites >5h de sono) =====
 const sleepData = [["2026-05-14",74],["2026-05-15",88],["2026-05-16",94],["2026-05-17",86],["2026-05-18",88],["2026-05-19",80],["2026-05-20",93],["2026-05-21",80],["2026-05-22",79],["2026-05-23",85],["2026-05-24",98],["2026-05-25",83],["2026-05-27",85],["2026-05-28",61],["2026-05-30",94],["2026-05-31",88],["2026-06-01",88],["2026-06-02",100],["2026-06-03",100],["2026-06-05",95],["2026-06-06",73],["2026-06-07",85],["2026-06-08",84],["2026-06-09",92],["2026-06-10",87],["2026-06-11",90],["2026-06-12",83],["2026-06-13",84],["2026-06-14",92],["2026-06-15",100],["2026-06-16",53],["2026-06-17",88],["2026-06-18",94],["2026-06-19",100],["2026-06-20",63],["2026-06-21",81],["2026-06-22",100],["2026-06-23",97],["2026-06-24",99],["2026-06-25",84],["2026-06-26",83],["2026-06-27",88],["2026-06-28",84],["2026-06-29",86],["2026-06-30",86],["2026-07-01",82],["2026-07-02",86],["2026-07-03",98],["2026-07-04",100],["2026-07-05",84],["2026-07-06",92],["2026-07-07",85],["2026-07-08",83],["2026-07-09",93],["2026-07-10",79],["2026-07-11",99],["2026-07-12",69]];
