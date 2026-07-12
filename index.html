@@ -124,12 +124,14 @@
     <div class="card"><h3>Peso corporal (kg)</h3><div class="chart-box"><canvas id="weight"></canvas></div></div>
     <div class="card"><h3>Soma de 7 dobras (mm) — menor é melhor</h3><div class="chart-box"><canvas id="folds"></canvas></div></div>
     <div class="card"><h3>Perímetros-chave (cm)</h3><div class="chart-box"><canvas id="perim"></canvas></div></div>
-    <div class="card"><h3>Metas</h3>
-      <div class="msg" style="font-size:14px;line-height:1.6">
-        Peso ideal do app: <b>65 kg</b> (desalinhado com o objetivo)<br>
-        % gordura proposta: <b>14%</b> — já superada (12,67%)<br>
-        Próxima avaliação: <b>09/07/2026</b>
+    <div class="card"><h3>🎯 Metas</h3>
+      <div class="msg" style="font-size:14px;line-height:2">
+        <b>Peso ideal:</b> 68 kg<br>
+        <b>% gordura:</b> 11%<br>
+        <b>Data alvo:</b> — (a definir)<br>
+        <b>Próxima avaliação/consulta:</b> 17/07 às 9h
       </div>
+      <div class="legend-note">Dados atualizados manualmente.</div>
     </div>
   </div>
 
@@ -161,7 +163,7 @@ document.getElementById("sleepAvg").textContent = sAvg;
 new Chart(sleep,{type:"line",data:{labels:sLabels,datasets:[
   {label:"Qualidade (%)",data:sVals,borderColor:"#8b5cf6",backgroundColor:"rgba(139,92,246,.12)",tension:.3,fill:true,pointRadius:2},
   {label:"Média 60d ("+sAvg+"%)",data:sVals.map(()=>sAvg),borderColor:"#16a34a",borderDash:[6,6],pointRadius:0}
-]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12}}},scales:{x:{grid:{color:cGrid},ticks:{maxTicksLimit:10,autoSkip:true}},y:{grid:{color:cGrid},min:0,max:100,title:{display:true,text:"%",color:cMuted}}}}});
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12}}},scales:{x:{grid:{color:cGrid},ticks:{maxTicksLimit:10,autoSkip:true}},y:{grid:{color:cGrid},min:0,max:110,ticks:{stepSize:20,callback:v=>v<=100?v:""},title:{display:true,text:"%",color:cMuted}}}}});
 
 // ===== Reports ao vivo (Google Sheet) =====
 function parseCSV(text){
