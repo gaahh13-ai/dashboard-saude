@@ -28,6 +28,10 @@
   .up{color:var(--accent2)} .good{color:var(--accent2)} .flat{color:var(--muted)}
   .charts{grid-template-columns:repeat(2,1fr)}
   @media(max-width:720px){.charts{grid-template-columns:1fr}}
+  .sd-grid{display:grid;gap:16px;grid-template-columns:1.5fr 1fr}
+  @media(max-width:720px){.sd-grid{grid-template-columns:1fr}}
+  .bignum{font-size:42px;font-weight:800;line-height:1}
+  .diet-grade{font-size:48px;font-weight:800;color:var(--accent2);line-height:1}
   .card h3{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--txt)}
   .section-title{font-size:16px;font-weight:700;margin:26px 0 6px}
   .chart-box{position:relative;height:240px}
@@ -74,6 +78,29 @@
       Se o joelho permitir, distribua <b>mais dias de força</b> e comece a reintroduzir <b>cardio leve (bike)</b> no pós-treino, rumo à meta de 11%. Dieta correta é ótimo sinal — reporte os outros dias pra fechar o quadro.
     </div>
     <div class="legend-note">Atualizado em 10/07/2026 pela rotina (com desfazer + deduplicação de conteúdo). Este texto é gerado pela rotina de processamento; para refrescar, rode a rotina e me peça para republicar.</div>
+  </div>
+
+  <div class="section-title">😴 Sono &amp; 🍽️ Dieta</div>
+  <div class="sd-grid">
+    <div>
+      <div class="card"><h3>Qualidade do sono (últimos 60 dias)</h3><div class="chart-box"><canvas id="sleep"></canvas></div></div>
+      <div class="card" style="margin-top:16px;text-align:center">
+        <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Média de qualidade — últimos 60 dias</div>
+        <div class="bignum" style="color:#8b5cf6;margin-top:8px"><span id="sleepAvg">74</span>%</div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--accent2)">
+      <h3>🍽️ Dieta</h3>
+      <div style="text-align:center;margin:6px 0 14px">
+        <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Nota de adesão</div>
+        <div class="diet-grade" style="margin-top:6px">8,0<span style="font-size:20px;color:var(--muted);font-weight:600">/10</span></div>
+      </div>
+      <div style="font-size:13px;line-height:1.55">
+        <b style="color:var(--accent2)">✅ Pontos positivos:</b> segue o plano da nutri (Pietra) com consistência; relatou "alimentação correta o dia inteiro"; boa base de proteína (~1,9 g/kg) e rotina de 5 refeições.<br><br>
+        <b style="color:var(--warn)">⚠️ A melhorar:</b> excessos de fim de semana (álcool) derrubam o saldo da semana; gordura da dieta um pouco baixa (~13% das calorias); reporte mais dias de alimentação pra nota ficar mais precisa.
+      </div>
+      <div class="legend-note">Nota e comentário gerados por IA a partir dos seus reports de alimentação. Atualizado em 12/07/2026 (refresca quando a rotina roda e eu republico).</div>
+    </div>
   </div>
 
   <div class="section-title">Composição corporal (avaliações)</div>
@@ -126,6 +153,17 @@ new Chart(mass,{type:"bar",data:{labels:dates,datasets:[{label:"Massa magra",dat
 new Chart(weight,{type:"line",data:{labels:dates,datasets:[{label:"Peso",data:[67,68.3,69],borderColor:"#334155",backgroundColor:"rgba(51,65,85,.08)",tension:.3,fill:true,pointRadius:5},{label:"Teto 70 kg",data:[70,70,70],borderColor:"#dc2626",borderDash:[6,6],pointRadius:0}]},options:baseOpts("kg")});
 new Chart(folds,{type:"line",data:{labels:dates,datasets:[{label:"Soma 7 dobras",data:[101,91,83],borderColor:"#16a34a",backgroundColor:"rgba(22,163,74,.12)",tension:.3,fill:true,pointRadius:5}]},options:baseOpts("mm")});
 new Chart(perim,{type:"line",data:{labels:dates,datasets:[{label:"Ombros",data:[110,112,114.5],borderColor:"#0ea5e9",tension:.3,pointRadius:4},{label:"Tórax",data:[96.5,94,98],borderColor:"#8b5cf6",tension:.3,pointRadius:4},{label:"Braço",data:[32.5,33.3,34.2],borderColor:"#16a34a",tension:.3,pointRadius:4},{label:"Cintura",data:[79.5,80,79],borderColor:"#f59e0b",tension:.3,pointRadius:4}]},options:baseOpts("cm")});
+
+// ===== Sono (últimos 60 dias, dados do Sleep Cycle) =====
+const sleepData = [["2026-05-14",74],["2026-05-15",88],["2026-05-16",94],["2026-05-17",86],["2026-05-18",88],["2026-05-19",25],["2026-05-19",80],["2026-05-20",93],["2026-05-21",80],["2026-05-22",79],["2026-05-23",85],["2026-05-24",17],["2026-05-24",98],["2026-05-25",83],["2026-05-26",17],["2026-05-26",41],["2026-05-27",85],["2026-05-28",5],["2026-05-28",6],["2026-05-28",11],["2026-05-28",61],["2026-05-29",54],["2026-05-30",94],["2026-05-31",88],["2026-06-01",88],["2026-06-02",100],["2026-06-03",100],["2026-06-04",44],["2026-06-05",95],["2026-06-06",73],["2026-06-07",85],["2026-06-08",84],["2026-06-09",92],["2026-06-10",13],["2026-06-10",87],["2026-06-11",5],["2026-06-11",90],["2026-06-12",83],["2026-06-13",84],["2026-06-14",92],["2026-06-15",100],["2026-06-16",53],["2026-06-17",88],["2026-06-18",94],["2026-06-19",8],["2026-06-19",100],["2026-06-20",63],["2026-06-21",19],["2026-06-21",81],["2026-06-22",100],["2026-06-23",97],["2026-06-24",99],["2026-06-25",84],["2026-06-26",83],["2026-06-27",88],["2026-06-28",84],["2026-06-29",86],["2026-06-30",86],["2026-07-01",82],["2026-07-02",86],["2026-07-03",98],["2026-07-04",100],["2026-07-05",84],["2026-07-06",92],["2026-07-07",85],["2026-07-08",83],["2026-07-09",93],["2026-07-10",79],["2026-07-11",99],["2026-07-12",69]];
+const sLabels = sleepData.map(x=>{const d=new Date(x[0]);return String(d.getDate()).padStart(2,"0")+"/"+String(d.getMonth()+1).padStart(2,"0");});
+const sVals = sleepData.map(x=>x[1]);
+const sAvg = Math.round(sVals.reduce((a,b)=>a+b,0)/sVals.length);
+document.getElementById("sleepAvg").textContent = sAvg;
+new Chart(sleep,{type:"line",data:{labels:sLabels,datasets:[
+  {label:"Qualidade (%)",data:sVals,borderColor:"#8b5cf6",backgroundColor:"rgba(139,92,246,.12)",tension:.3,fill:true,pointRadius:2},
+  {label:"Média 60d ("+sAvg+"%)",data:sVals.map(()=>sAvg),borderColor:"#16a34a",borderDash:[6,6],pointRadius:0}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:12}}},scales:{x:{grid:{color:cGrid},ticks:{maxTicksLimit:10,autoSkip:true}},y:{grid:{color:cGrid},min:0,max:100,title:{display:true,text:"%",color:cMuted}}}}});
 (function(){const s=15.15,c=12.67,g=11.0;const p=Math.max(0,Math.min(100,((s-c)/(s-g))*100));document.getElementById("goalbar").style.width=p.toFixed(0)+"%";document.getElementById("goalpct").textContent=p.toFixed(0)+"%";})();
 
 // ====== CSV parsing ======
