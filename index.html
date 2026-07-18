@@ -70,7 +70,7 @@
     <div class="card kpi"><div class="label">% Gordura</div><div class="val">12,67%</div><div class="delta good">−2,48 pp ↓ (meta 11%)</div></div>
     <div class="card kpi"><div class="label">Massa magra</div><div class="val">60,26 kg</div><div class="delta up">+3,41 kg 💪</div></div>
     <div class="card kpi" style="border-top:3px solid var(--sleep)"><div class="label">Sono (60d)</div><div class="val" style="color:var(--sleep)"><span id="sleepAvg">87</span>%</div><div class="delta flat">média · só noites &gt;5h</div></div>
-    <div class="card kpi" style="border-top:3px solid var(--accent2)"><div class="label">Dieta</div><div class="val" style="color:var(--accent2)">7,5<span style="font-size:16px;color:var(--muted)">/10</span></div><div class="delta flat">adesão (IA)</div></div>
+    <div class="card kpi" style="border-top:3px solid var(--accent2)"><div class="label">Dieta</div><div class="val" style="color:var(--accent2)">8,0<span style="font-size:16px;color:var(--muted)">/10</span></div><div class="delta flat">adesão (IA)</div></div>
     <div class="card kpi"><div class="label">Falta p/ meta</div><div class="val">~1,1 kg</div><div class="delta flat">de gordura</div></div>
   </div>
 
@@ -106,13 +106,13 @@
       <h3>🍽️ Dieta — nota &amp; comentário</h3>
       <div style="text-align:center;margin:6px 0 14px">
         <div class="label" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px">Nota de adesão</div>
-        <div class="diet-grade" style="margin-top:6px">7,5<span style="font-size:20px;color:var(--muted);font-weight:600">/10</span></div>
+        <div class="diet-grade" style="margin-top:6px">8,0<span style="font-size:20px;color:var(--muted);font-weight:600">/10</span></div>
       </div>
       <div style="font-size:13px;line-height:1.55">
-        <b style="color:var(--accent2)">✅ Positivos:</b> alimentação <b>dentro do plano a semana inteira</b> (dias úteis); boa base de proteína (~1,9 g/kg) e rotina de 5 refeições da nutri (Pietra).<br><br>
-        <b style="color:var(--warn)">⚠️ A melhorar:</b> <b>álcool no fim de semana</b> (7 cervejas sáb + 2 doses dom) — principal ponto a controlar, pesa na recuperação do joelho e no déficit; gordura da dieta um pouco baixa (~13% das calorias).
+        <b style="color:var(--accent2)">✅ Positivos:</b> semana <b>dentro do plano</b>; segue a rotina da nutri (Pietra) com boa base de proteína (~1,9 g/kg) e 5 refeições.<br><br>
+        <b style="color:var(--warn)">⚠️ A melhorar:</b> controlar o <b>álcool nos fins de semana</b> (no de 11–12/07 foram 7 cervejas + 2 doses); gordura da dieta um pouco baixa (~13% das calorias).
       </div>
-      <div class="legend-note">Nota e comentário gerados por IA a partir dos seus reports de alimentação. Atualizado em 13/07/2026.</div>
+      <div class="legend-note">Nota e comentário gerados por IA a partir dos seus reports de alimentação. Atualizado em 17/07/2026.</div>
     </div>
   </div>
 
@@ -130,11 +130,10 @@
     <div class="card" style="border-left:4px solid var(--accent2)">
       <h3>🧑‍🏫 Feedback do coach — semana 13–19/07</h3>
       <div class="msg" style="font-size:14px;line-height:1.55">
-        Ótima virada de semana: você <b>voltou aos treinos da personal (Laiane)</b> e — melhor notícia — já incluiu <b>quadríceps (pernas)</b> na segunda, sinal de que o <b>joelho está melhorando</b>. 🙌
-        Seg 13: quad/bíceps/tríceps + 25 min de cardio; ter 14: costas/bíceps/tríceps intenso. Cardio retomado.
-        Siga progredindo os <b>membros inferiores com cautela</b>, de olho na resposta do joelho no dia seguinte, rumo à meta de 11%. Semana anterior fechou com 5 sessões + tênis — frequência excelente.
+        Semana muito <b>consistente com a personal (Laiane)</b>: treinou <b>seg, ter, qui e sex</b> (quarta de descanso), já com <b>pernas (quadríceps)</b> e <b>~20 min de cardio</b> nos dias de treino.
+        O <b>joelho está melhorando devagar</b> — ótimo sinal; siga progredindo os inferiores com cautela, de olho na resposta no dia seguinte, rumo à meta de 11%. Dieta ok na semana. A anterior fechou com 5 sessões + tênis — frequência excelente.
       </div>
-      <div class="legend-note">Gerado pela rotina (com desfazer + deduplicação). Atualizado em 15/07/2026; refresca quando a rotina roda e eu republico.</div>
+      <div class="legend-note">Gerado pela rotina (com desfazer + deduplicação). Atualizado em 17/07/2026; refresca quando a rotina roda e eu republico.</div>
     </div>
   </div>
 
@@ -199,7 +198,7 @@ new Chart(perim,{type:"line",data:{labels:dates,datasets:[{label:"Ombros",data:[
 
 // ===== Performance de treino (mês) =====
 // TREINOS REALIZADOS no mês corrente — atualizado pela rotina/republicação (ou futuramente pelo bot).
-const TREINO_REALIZADO = 10;
+const TREINO_REALIZADO = 12;
 (function(){
   const meses=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
   function bizInMonth(y,m){let c=0,d=new Date(y,m,1);while(d.getMonth()===m){const w=d.getDay();if(w>=1&&w<=5)c++;d.setDate(d.getDate()+1);}return c;}
